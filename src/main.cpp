@@ -8,6 +8,9 @@ int main() {
     std::cout << automat.getState() << std::endl;
     automat.coin(150);
 
+    automat.off();
+    std::cout << automat.getState() << std::endl;
+    
     std::cout << automat.getState() << std::endl;
     automat.coin(200);
 
