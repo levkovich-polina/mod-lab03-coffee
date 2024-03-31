@@ -2,73 +2,66 @@
 #include <gtest/gtest.h>
 #include "Automata.h"
 
-
-TEST(on, test1) {
-    Automata A;
-    A.on();
-    EXPECT_EQ(WAIT, A.getState());
+TEST(test_create, test_create) {
+    Automata automat;
+    EXPECT_EQ(OFF, automat.getState());
 }
 
-TEST(on, test2) {
-    Automata A;
-    A.on();
-    A.coin(1);
-    A.on();
-    EXPECT_EQ(ACCEPT, A.getState());
+TEST(test_on, test_on) {
+    Automata automat;
+    automat.on();
+    EXPECT_EQ(WAIT, automat.getState());
 }
 
-TEST(off, test3) {
-    Automata A;
-    EXPECT_EQ(OFF, A.getState());
+TEST(test_off, test_off) {
+    Automata automat;
+    automat.on();
+    automat.off();
+    EXPECT_EQ(OFF, automat.getState());
 }
 
-TEST(off, test4) {
-    Automata A;
-    A.on();
-    A.coin(1);
-    A.off();
-    EXPECT_EQ(OFF, A.getState());
+TEST(test_coin, test_coin) {
+    Automata automat;
+    automat.on();
+    automat.coin(150);
+    EXPECT_EQ(ACCEPT, automat.getState());
 }
 
-TEST(cancel, test5) {
-    Automata A;
-    A.on();
-    A.coin(1);
-    A.cancel();
-    EXPECT_EQ(WAIT, A.getState());
+
+TEST(test_choice, test_choice) {
+    Automata automat;
+    automat.on();
+    automat.coin(100);
+    automat.choice(2);
+    EXPECT_EQ(WAIT, automat.getState());
 }
 
-TEST(cancel, test6) {
-    Automata A;
-    A.on();
-    A.coin(1);
-    A.choice(1);
-    EXPECT_EQ(WAIT, A.getState());
+TEST(test_choice_v2, test_choice_v2) {
+    Automata automat;
+    automat.on();
+    automat.coin(10);
+    automat.choice(2);
+    EXPECT_EQ(WAIT, automat.getState());
 }
 
-TEST(coin, test7) {
-    Automata A;
-    A.on();
-    A.coin(1);
-    A.coin(1);
-    EXPECT_EQ(ACCEPT, A.getState());
+TEST(test_cook, test_cook) {
+    Automata automat;
+    automat.on();
+    automat.cook();
+    EXPECT_EQ(COOK, automat.getState());
 }
 
-TEST(insufficient_funds, test8) {
-    Automata A;
-    A.on();
-    A.coin(10);
-    A.choice(4);
-    EXPECT_EQ(WAIT, A.getState());
+TEST(test_cancel, test_cancel) {
+    Automata automat;
+    automat.cancel();
+    EXPECT_EQ(WAIT, automat.getState());
 }
 
-TEST(correct_work, test9) {
-    Automata A;
-    A.on();
-    A.coin(10);
-    A.cancel();
-    A.coin(50);
-    A.coin(50);
-    A.choice(2);
-    EXPECT_EQ(WAIT, A.getState());
+TEST(test_full_work, test_full_work) {
+    Automata automat;
+    automat.on();
+    automat.coin(10);
+    automat.choice(2);
+    automat.off();
+    EXPECT_EQ(OFF, automat.getState());
 }
