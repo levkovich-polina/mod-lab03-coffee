@@ -1,35 +1,29 @@
-#pragma once
+//Copyright 2024 <levkovich-polina>
+#ifndef INCLUDE_AUTOMATA_H_
+#define INCLUDE_AUTOMATA_H_
+#include <iostream>
 #include <string>
+#include <vector>
 
-
-enum STATES {OFF, WAIT, ACCEPT, CHECK, COOK};
+enum STATES { OFF, WAIT, ACCEPT, CHECK, COOK };
 
 class Automata {
  private:
-    unsigned int cash;
-    std::string menu[6] = {"americano",
-                           "cappuccino",
-                           "latte",
-                           "espresso",
-                           "hot chocolate",
-                           "tea"};
-    unsigned int prices[6] = {100, 90, 80, 90, 80, 40};
-    STATES state;
-    unsigned int num_of_chosen_drink;
-
+        int cash;
+        std::vector<std::string> menu;
+        std::vector<int> prices;
+        STATES state;
  public:
-    Automata();
-    void on();
-    void off();
-    void coin(unsigned int sum);
-    void getMenu();
-    STATES getState();
-    void choice(unsigned int num);
-    void cancel();
-
- private:
-    void check();
-    void cook();
-    void finish();
-    void getChange(unsigned int price = 0);
+        Automata();
+        void on();
+        void off();
+        void coin(int money);
+        std::string getMenu();
+        STATES getState();
+        void choice(int choice);
+        bool check(int choice);
+        void cancel();
+        void cook();
+        void finish();
 };
+#endif
