@@ -40,4 +40,6 @@ int main() {
 
     automat.finish();
     std::cout << automat.getState() << std::endl;
+
+    automat.off();
 }
