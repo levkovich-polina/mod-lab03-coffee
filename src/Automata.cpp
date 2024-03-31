@@ -1,3 +1,4 @@
+// Copyright 2024 <levkovich-polina>
 #include "Automata.h"
 #include <iostream>
 
