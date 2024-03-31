@@ -1,11 +1,12 @@
+// Copyright 2024 <levkovich-polina>
 #include "Automata.h"
 
 
 int main() {
     Automata A;
     A.on();
-    A.coin(100);
-    A.choice(2);
+    A.coin(150);
+    A.choice(3);
     A.off();
     return 0;
 }
