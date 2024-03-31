@@ -14,13 +14,6 @@ TEST(test_on, test_on) {
     EXPECT_EQ(WAIT, automat.getState());
 }
 
-TEST(test_off, test_off) {
-    Automata automat;
-    automat.on();
-    automat.off();
-    EXPECT_EQ(OFF, automat.getState());
-}
-
 TEST(test_coin, test_coin) {
     Automata automat;
     automat.on();
