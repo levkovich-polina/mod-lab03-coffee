@@ -1,102 +1,65 @@
-
+//Copyright 2024 <levkovich-polina>
 #include "Automata.h"
-#include <iostream>
-
-
 Automata::Automata() {
     cash = 0;
     state = OFF;
+    menu = { "Кофе", "Чай", "Молоко", "Какао" };
+    prices = { 100, 30, 20, 50 };
 }
 
 void Automata::on() {
-    if (state == OFF) {
-        cash = 0;
+    if (state == OFF)
         state = WAIT;
-        getMenu();
-    }
 }
 
-void Automata::off() {
-    getChange();
-    cash = 0;
-    state = OFF;
+    void Automata::off() {
+        if (state == WAIT)
+            state = OFF;
+    }
+
+void Automata::coin(int money) {
+    cash += money;
+    state = ACCEPT;
 }
 
-void Automata::coin(unsigned int sum) {
-    if (state == WAIT || state == ACCEPT) {
-        cash += sum;
-        state = ACCEPT;
-    } else {
-        std::cout << "Операция не может быть выполнена" << std::endl;
+std::string Automata::getMenu() {
+    std::string result = "";
+    for (int i = 0; i < menu.size(); i++) {
+        result += menu[i] + " - " + std::to_string(prices[i]) + "\n";
     }
-}
-
-void Automata::getMenu() {
-    std::cout << "Меню:" << std::endl;
-    for (int i = 0; i < sizeof(menu) / sizeof(menu[0]); i++) {
-        std::cout << i + 1 << ") "
-            << menu[i] << " -  " << prices[i]
-            << std::endl;
-    }
+    return result;
 }
 
 STATES Automata::getState() {
     return state;
 }
 
-void Automata::choice(unsigned int num) {
+void Automata::choice(int choice) {
     if (state == ACCEPT) {
-        if (0 < num && num <= sizeof(menu) / sizeof(menu[0])) {
-            num_of_chosen_drink = num - 1;
-            state = CHECK;
-            check();
-        } else {
-            std::cout << "Неправильный выбор" << std::endl;
-        }
-    } else {
-    std::cout << "Операция не может быть выполнена" << std::endl;
-    }
-}
-
-void Automata::cancel() {
-    if (state == ACCEPT || state == CHECK) {
-        getChange();
-        cash = 0;
-        state = WAIT;
-    } else {
-        std::cout << "Операция не может быть выполнена" << std::endl;
-    }
-}
-
-void Automata::check() {
-    if (state == CHECK) {
-        if (cash >= prices[num_of_chosen_drink]) {
-            getChange(prices[num_of_chosen_drink]);
+        state = CHECK;
+        if (check(choice)) {
+            cash -= prices[choice];
             cook();
+            finish();
         } else {
-            std::cout << "Недостаточно средств" << std::endl;
             cancel();
         }
     }
 }
 
+bool Automata::check(int choice) {
+    return cash >= prices[choice];
+}
+
+void Automata::cancel() {
+    cash = 0;
+    state = WAIT;
+}
+
 void Automata::cook() {
-    if (state == CHECK) {
-        state = COOK;
-        std::cout << "Твой " << menu[num_of_chosen_drink]
-            << " готов" << std::endl;
-        finish();
-    }
+    state = COOK;
 }
 
 void Automata::finish() {
-    if (state == COOK) {
-        cash = 0;
-        state = WAIT;
-    }
-}
-
-void Automata::getChange(unsigned int price) {
-    if (cash - price != 0)
-    std::cout << "Возьмите сдачу: " << cash - price << std::endl;
+    state = WAIT;
 }
