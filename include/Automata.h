@@ -1,31 +1,35 @@
-
 #pragma once
-#include <iostream>
 #include <string>
 
+
+enum STATES {OFF, WAIT, ACCEPT, CHECK, COOK};
+
 class Automata {
+ private:
+    unsigned int cash;
+    std::string menu[6] = {"americano",
+                           "cappuccino",
+                           "latte",
+                           "espresso",
+                           "hot chocolate",
+                           "tea"};
+    unsigned int prices[6] = {100, 90, 80, 90, 80, 40};
+    STATES state;
+    unsigned int num_of_chosen_drink;
+
  public:
-  enum State { OFF, WAIT, ACCEPT, CHECK, COOK };
+    Automata();
+    void on();
+    void off();
+    void coin(unsigned int sum);
+    void getMenu();
+    STATES getState();
+    void choice(unsigned int num);
+    void cancel();
 
  private:
-  double cash;
-  std::string *menu;
-  int *prices;
-  State state;
-  int count_menu;
-
- public:
-  Automata();
-  void on();
-  void off();
-  void coin(int);
-  void getMenu();
-  State getState();
-  void choice(int);
-  void cancel();
-
- private:
-  void check(int);
-  void cook(int);
-  void finish(int);
+    void check();
+    void cook();
+    void finish();
+    void getChange(unsigned int price = 0);
 };
