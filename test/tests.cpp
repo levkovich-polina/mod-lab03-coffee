@@ -21,6 +21,12 @@ TEST(test_coin, test_coin) {
     EXPECT_EQ(ACCEPT, automat.getState());
 }
 
+TEST(test_off, test_off) {
+    Automata automat;
+    automat.on();
+    automat.off();
+    EXPECT_EQ(OFF, automat.getState());
+}
 
 TEST(test_choice, test_choice) {
     Automata automat;
