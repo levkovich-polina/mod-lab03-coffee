@@ -1,4 +1,4 @@
-// Copyright 2022 GHA Test Team
+// Copyright 2024 <levkovich-polina>
 #include <gtest/gtest.h>
 #include "Automata.h"
 
