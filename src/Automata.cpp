@@ -4,7 +4,7 @@ Automata::Automata() {
     cash = 0;
     state = OFF;
     menu = { "Кофе", "Чай", "Молоко", "Какао" };
-    prices = { 100, 30, 20, 50 };
+     prices = { 50, 30, 20, 40 };
 }
 
 void Automata::on() {
